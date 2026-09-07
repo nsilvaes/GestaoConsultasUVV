@@ -1,0 +1,51 @@
+@model GestaoConsultasUVV.Models.Consulta
+
+@{
+    ViewData["Title"] = "Excluir Consulta";
+}
+
+<div class="container mt-4" style="max-width: 700px;">
+    <div class="card shadow-sm border-danger">
+        <div class="card-body p-4">
+            <h2 class="text-danger">Excluir Consulta</h2>
+
+            <p>
+                Tem certeza de que deseja excluir esta consulta?
+            </p>
+
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-4">Especialidade</dt>
+                <dd class="col-sm-8">@Model.Especialidade</dd>
+
+                <dt class="col-sm-4">Data e Hora</dt>
+                <dd class="col-sm-8">
+                    @Model.DataHora.ToString("dd/MM/yyyy HH:mm")
+                </dd>
+
+                <dt class="col-sm-4">Descrição</dt>
+                <dd class="col-sm-8">
+                    @(string.IsNullOrWhiteSpace(Model.Descricao)
+                        ? "-"
+                        : Model.Descricao)
+                </dd>
+            </dl>
+
+            <form asp-action="DeleteConfirmed"
+                  asp-route-id="@Model.Id"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <button type="submit" class="btn btn-danger">
+                    Confirmar Exclusão
+                </button>
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
